@@ -1,1 +1,17 @@
-Django
+# Core Framework
+Django==5.1.2
+
+# Data Science Stack
+pandas==2.2.3
+numpy==1.26.4
+scikit-learn==1.5.2
+joblib==1.4.2
+
+# Visualization
+matplotlib==3.9.2
+plotly==5.24.1
+
+# Optional but useful
+seaborn==0.13.2
+gunicorn==23.0.0         # for deployment (optional)
+whitenoise==6.6.0        # static file serving (for production)
