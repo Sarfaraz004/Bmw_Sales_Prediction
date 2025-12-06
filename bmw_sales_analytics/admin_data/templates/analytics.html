@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BMW Analytics Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<h2>BMW Sales Analytics Dashboard</h2>
+
+<label>Select Model:</label>
+<select id="modelSelect">
+    <option value="">-- Choose Model --</option>
+    {% for m in models %}
+        <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+</select>
+
+<hr><br>
+
+<!-- Charts -->
+<canvas id="priceChart" height="100"></canvas><br>
+<canvas id="salesChart" height="100"></canvas><br>
+<canvas id="regionChart" height="100"></canvas><br>
+
+<script>
+function loadCharts(model){
+    $.getJSON(`/basemode/analytics/data/${model}/`, function(data){
+
+        // Price Over Years
+        new Chart(priceChart, {
+            type: 'line',
+            data: { labels:data.years, datasets:[{ label:"Price", data:data.prices }] }
+        });
+
+        // Sales Volume Trend
+        new Chart(salesChart, {
+            type: 'bar',
+            data: { labels:data.years, datasets:[{ label:"Sales Volume", data:data.sales }] }
+        });
+
+        // Region Split
+        new Chart(regionChart, {
+            type:'pie',
+            data:{ labels:Object.keys(data.region_data),
+                   datasets:[{ data:Object.values(data.region_data) }] }
+        });
+
+    });
+}
+
+$('#modelSelect').change(function(){
+    let selectedModel = $(this).val();
+    if(selectedModel) loadCharts(selectedModel);
+});
+</script>
+
+</body>
+</html>

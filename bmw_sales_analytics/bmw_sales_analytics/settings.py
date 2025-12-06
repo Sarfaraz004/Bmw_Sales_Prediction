@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'prediction',
     'visualization',
-    'marketplace',
+    'admin_data',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +68,14 @@ TEMPLATES = [
         },
     },
 ]
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",   # Root static folder
+]
+
+# Only needed for production, but okay to keep
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 WSGI_APPLICATION = 'bmw_sales_analytics.wsgi.application'
 
@@ -123,3 +131,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RAZORPAY_KEY_ID = 'rzp_test_RoPn6qIi986Zzi'
+RAZORPAY_KEY_SECRET = 'v3Dkc7YWz6gTPrYuJxR44h62'

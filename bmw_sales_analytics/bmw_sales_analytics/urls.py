@@ -4,6 +4,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('predict/', include('prediction.urls')),
-    path('visualization/', include('visualization.urls')),
-    path('marketplace/', include('marketplace.urls')),
+    path('', include('visualization.urls')),
+    path('basemode/', include('admin_data.urls')),
 ]

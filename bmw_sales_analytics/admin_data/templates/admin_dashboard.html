@@ -1,0 +1,77 @@
+<!-- visualization/templates/visualization/dashboard.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <h1>BMW Sales Dashboard</h1>
+    <table id="salesTable" class="display">
+    <thead>
+        <tr>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Region</th>
+            <th>Color</th>
+            <th>Fuel</th>
+            <th>Transmission</th>
+            <th>Engine Size</th>
+            <th>Mileage</th>
+            <th>Price</th>
+            <th>Sales Volume</th>
+            <th>Classification</th>
+            <th>Purchase Date</th>
+            <th>Payment ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for car in page_obj %}
+        <tr>
+            <td>{{ car.model }}</td>
+            <td>{{ car.year }}</td>
+            <td>{{ car.region }}</td>
+            <td>{{ car.color }}</td>
+            <td>{{ car.fuel_type }}</td>
+            <td>{{ car.transmission }}</td>
+            <td>{{ car.engine_size_l }}</td>
+            <td>{{ car.mileage_km }}</td>
+            <td>{{ car.price_usd }}</td>
+            <td>{{ car.sales_volume }}</td>
+            <td>{{ car.sales_classification }}</td>
+            <td>{{ car.purchase_date }}</td>
+            <td>{{ car.payment_id }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#salesTable').DataTable({
+                "pageLength": 25
+            });
+        });
+    </script>
+</body>
+</html>

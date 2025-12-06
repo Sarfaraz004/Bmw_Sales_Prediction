@@ -1,0 +1,266 @@
+{
+  "models": [
+    {
+      "name": "1 Series Hatchback",
+      "category": "Hatchback",
+      "variants": [
+        { "trim": "118i", "horsepower": 140, "engine": "1.5L Turbo", "price": 3300 }
+      ],
+      "top_speed": 210,
+      "image": "/static/images/1series_hatchback.jpg",
+      "description": "Compact sporty hatchback ideal for urban driving, with BMW agility in small form factor."
+    },
+    {
+      "name": "2 Series Gran Coupé",
+      "category": "Sedan",
+      "variants": [
+        { "trim": "220i", "horsepower": 140, "engine": "1.5L Turbo", "price": 3500000 },
+        { "trim": "230i", "horsepower": 190, "engine": "2.0L Turbo", "price": 4000000 }
+      ],
+      "top_speed": 230,
+      "image": "/static/images/2_Series_Gran_Coupé.png",
+      "description": "Compact premium 4-door combining sporty handling with everyday comfort."
+    },
+    {
+      "name": "2 Series Coupé",
+      "category": "Coupé",
+      "variants": [
+        { "trim": "220i Coupé", "horsepower": 184, "engine": "2.0L Turbo", "price": 3800000 }
+      ],
+      "top_speed": 230,
+      "image": "/static/images/2_Series_Coupé.png",
+      "description": "Rear‑wheel‑drive coupe with sporty character and nimble handling."
+    },
+    {
+      "name": "3 Series",
+      "category": "Sedan",
+      "variants": [
+        { "trim": "318i", "horsepower": 156, "engine": "2.0L Turbo", "price": 4200000 },
+        { "trim": "330i", "horsepower": 255, "engine": "2.0L Turbo", "price": 4800000 },
+        { "trim": "M340i", "horsepower": 382, "engine": "3.0L Turbo", "price": 6500000 }
+      ],
+      "top_speed": 250,
+      "image": "/static/images/3_Series.png",
+      "description": "Driver‑oriented sedan balancing comfort, dynamics and modern technology."
+    },
+    {
+      "name": "4 Series Coupé",
+      "category": "Coupé",
+      "variants": [
+        { "trim": "420i", "horsepower": 184, "engine": "2.0L Turbo", "price": 5000000 },
+        { "trim": "430i", "horsepower": 258, "engine": "2.0L Turbo", "price": 5800000 }
+      ],
+      "top_speed": 240,
+      "image": "/static/images/4_Series_Coupé.png",
+      "description": "Sporty coupe offering a refined blend of performance and elegance."
+    },
+    {
+      "name": "4 Series Convertible",
+      "category": "Convertible",
+      "variants": [
+        { "trim": "430i Convertible", "horsepower": 258, "engine": "2.0L Turbo", "price": 6200000 }
+      ],
+      "top_speed": 240,
+      "image": "/static/images/4_Series_Convertible.png",
+      "description": "Open‑top convertible combining BMW performance with carefree driving fun."
+    },
+    {
+      "name": "5 Series",
+      "category": "Sedan",
+      "variants": [
+        { "trim": "520i", "horsepower": 190, "engine": "2.0L Turbo", "price": 6000000 },
+        { "trim": "530i", "horsepower": 252, "engine": "2.0L Turbo", "price": 7000000 },
+        { "trim": "540i", "horsepower": 335, "engine": "3.0L Turbo", "price": 8500000 }
+      ],
+      "top_speed": 250,
+      "image": "/static/images/5_Series.png",
+      "description": "Executive sedan with spacious cabin, refined ride, and premium features."
+    },
+    {
+      "name": "6 Series Gran Turismo",
+      "category": "Sedan",
+      "variants": [
+        { "trim": "630i GT", "horsepower": 258, "engine": "2.0L Turbo", "price": 9500000 }
+      ],
+      "top_speed": 240,
+      "image": "/static/images/6_Series_Gran_Turismo.png",
+      "description": "Luxury tourer combining sedan comfort with hatchback practicality."
+    },
+    {
+      "name": "7 Series",
+      "category": "Sedan",
+      "variants": [
+        { "trim": "740i", "horsepower": 286, "engine": "3.0L Turbo", "price": 12000000 },
+        { "trim": "745e Plug-in Hybrid", "horsepower": 394, "engine": "Plug-in Hybrid", "price": 15500000 }
+      ],
+      "top_speed": 250,
+      "image": "/static/images/7_Series.jpg",
+      "description": "Flagship luxury sedan with top‑tier comfort, technology, and prestige."
+    },
+    {
+      "name": "8 Series Coupé",
+      "category": "Coupé",
+      "variants": [
+        { "trim": "840i Coupé", "horsepower": 335, "engine": "3.0L Turbo", "price": 15000000 }
+      ],
+      "top_speed": 250,
+      "image": "/static/images/8_Series_Coupé.jpg",
+      "description": "Grand tourer coupe with opulence, power and refined dynamics."
+    },
+    {
+      "name": "8 Series Convertible",
+      "category": "Convertible",
+      "variants": [
+        { "trim": "840d xDrive Convertible", "horsepower": 315, "engine": "3.0L Diesel TwinTurbo", "price": 17500000 }
+      ],
+      "top_speed": 250,
+      "image": "/static/images/8_Series_Convertible.jpg",
+      "description": "Premium convertible combining luxury, style and open‑top experience."
+    },
+    {
+      "name": "Z4 Roadster",
+      "category": "Convertible",
+      "variants": [
+        { "trim": "sDrive20i", "horsepower": 197, "engine": "2.0L Turbo", "price": 5500000 },
+        { "trim": "sDrive30i", "horsepower": 255, "engine": "2.0L Turbo", "price": 6500000 }
+      ],
+      "top_speed": 235,
+      "image": "/static/images/Z4_Roadster.png",
+      "description": "Classic roadster built for pure driving fun — light, agile and open‑top."
+    },
+    {
+      "name": "X1",
+      "category": "SUV",
+      "variants": [
+        { "trim": "X1 sDrive18d", "horsepower": 150, "engine": "2.0L Diesel", "price": 4500000 },
+        { "trim": "X1 sDrive20i", "horsepower": 192, "engine": "2.0L Turbo Petrol", "price": 5000000 }
+      ],
+      "top_speed": 220,
+      "image": "/static/images/X1.png",
+      "description": "Compact crossover perfect for urban & suburban driving with BMW DNA."
+    },
+    {
+      "name": "X2",
+      "category": "SUV",
+      "variants": [
+        { "trim": "X2 sDrive20i", "horsepower": 192, "engine": "2.0L Turbo", "price": 5200000 }
+      ],
+      "top_speed": 220,
+      "image": "/static/images/X2.png",
+      "description": "Stylish SUV‑crossover combining sporty looks with practicality."
+    },
+    {
+      "name": "X3",
+      "category": "SUV",
+      "variants": [
+        { "trim": "X3 xDrive30i", "horsepower": 248, "engine": "2.0L Turbo", "price": 6500000 }
+      ],
+      "top_speed": 240,
+      "image": "/static/images/X3.png",
+      "description": "Mid‑size SUV balancing performance, space and luxury."
+    },
+    {
+      "name": "X4",
+      "category": "SUV",
+      "variants": [
+        { "trim": "X4 xDrive30i", "horsepower": 248, "engine": "2.0L Turbo", "price": 7000000 }
+      ],
+      "top_speed": 240,
+      "image": "/static/images/X4.png",
+      "description": "Coupe‑style SUV blending SUV practicality with sporty aesthetics."
+    },
+    {
+      "name": "X5",
+      "category": "SUV",
+      "variants": [
+        { "trim": "X5 xDrive40i", "horsepower": 335, "engine": "3.0L Turbo", "price": 9000000 },
+        { "trim": "X5 xDrive45e Plug‑in Hybrid", "horsepower": 394, "engine": "Plug‑in Hybrid", "price": 10500000 }
+      ],
+      "top_speed": 250,
+      "image": "/static/images/X5.png",
+      "description": "Large luxury SUV offering performance, space and versatility."
+    },
+    {
+      "name": "X6",
+      "category": "SUV",
+      "variants": [
+        { "trim": "X6 xDrive40i", "horsepower": 335, "engine": "3.0L Turbo", "price": 10000000 }
+      ],
+      "top_speed": 250,
+      "image": "images/X6.png",
+      "description": "Sporty SUV‑coupe merging performance, style and SUV flexibility."
+    },
+    {
+      "name": "X7",
+      "category": "SUV",
+      "variants": [
+        { "trim": "X7 xDrive40d", "horsepower": 335, "engine": "3.0L Diesel TwinTurbo", "price": 11000000 }
+      ],
+      "top_speed": 230,
+      "image": "/static/images/X7.png",
+      "description": "Full‑size seven‑seater SUV delivering ultimate comfort and capacity."
+    },
+    {
+      "name": "i3",
+      "category": "EV",
+      "variants": [
+        { "trim": "i3 Standard", "horsepower": 170, "engine": "Electric", "price": 4500000 }
+      ],
+      "top_speed": 150,
+      "image": "images/i3.png",
+      "description": "Compact electric hatch ideal for city commuting and short‑range driving."
+    },
+    {
+      "name": "i4",
+      "category": "EV",
+      "variants": [
+        { "trim": "i4 eDrive40", "horsepower": 340, "engine": "Electric", "price": 5500000 },
+        { "trim": "i4 M50", "horsepower": 536, "engine": "Electric", "price": 7200000 }
+      ],
+      "top_speed": 225,
+      "image": "/static/images/i4.png",
+      "description": "Electric sedan offering strong acceleration and smooth driving balance."
+    },
+    {
+      "name": "i7",
+      "category": "EV",
+      "variants": [
+        { "trim": "i7 eDrive60", "horsepower": 335, "engine": "Electric", "price": 13000000 }
+      ],
+      "top_speed": 240,
+      "image": "/static/images/i7.png",
+      "description": "Electric luxury sedan blending zero‑emission power with flagship comfort."
+    },
+    {
+      "name": "iX",
+      "category": "EV",
+      "variants": [
+        { "trim": "iX xDrive40", "horsepower": 300, "engine": "Electric", "price": 8000000 },
+        { "trim": "iX xDrive50", "horsepower": 523, "engine": "Electric", "price": 12000000 }
+      ],
+      "top_speed": 200,
+      "image": "images/iX.png",
+      "description": "Electric SUV with advanced tech, spacious cabin and long‑range capabilities."
+    },
+    {
+      "name": "iX1",
+      "category": "EV",
+      "variants": [
+        { "trim": "iX1 xDrive", "horsepower": 204, "engine": "Electric", "price": 6500000 }
+      ],
+      "top_speed": 180,
+      "image": "/static/images/iX1.png",
+      "description": "Compact electric crossover combining efficiency and BMW character."
+    },
+    {
+      "name": "iX3",
+      "category": "EV",
+      "variants": [
+        { "trim": "iX3 eDrive", "horsepower": 286, "engine": "Electric", "price": 7500000 }
+      ],
+      "top_speed": 180,
+      "image": "/static/images/iX3.png",
+      "description": "Fully electric SUV offering practicality and emission‑free driving."
+    }
+  ]
+}

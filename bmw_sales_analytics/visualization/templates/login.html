@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMW Auth</title>
+
+<style>
+    /* ======= BACKGROUND ANIMATION ======= */
+    body{
+        margin:0;
+        font-family: 'Poppins', sans-serif;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        overflow:hidden;
+        background: linear-gradient(135deg,#0e1a2b,#003b6f,#016bb5);
+        background-size:400% 400%;
+        animation:bgmove 12s infinite alternate ease-in-out;
+    }
+    @keyframes bgmove { 
+        0%{ background-position:0% 50% }
+        100%{ background-position:100% 50% }
+    }
+
+    /* ======= LOGIN BOX ======= */
+    .login-box{
+        width:380px;
+        background:rgba(255,255,255,0.12);
+        backdrop-filter: blur(12px);
+        padding:35px;
+        border-radius:15px;
+        color:white;
+        text-align:center;
+        animation:fadeSlide 1.2s ease;
+    }
+
+    @keyframes fadeSlide{
+        0%{ opacity:0; transform:translateY(40px); }
+        100%{ opacity:1; transform:translateY(0); }
+    }
+
+    h2{ font-size:30px; margin-bottom:20px; }
+
+    input{
+        width:100%;
+        padding:13px;
+        margin:10px 0;
+        border:none;
+        outline:none;
+        border-radius:8px;
+        font-size:15px;
+    }
+
+    /* ===== BUTTON ANIMATION ===== */
+    .btn{
+        width:100%;
+        padding:14px;
+        margin-top:10px;
+        background:#00a8ff;
+        border:none;
+        color:#fff;
+        font-weight:600;
+        border-radius:10px;
+        cursor:pointer;
+        transition:.4s;
+        font-size:16px;
+    }
+    .btn:hover{
+        transform:scale(1.06);
+        box-shadow:0 0 12px #00a8ff;
+        background:#008cd4;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="login-box">
+    <h2>BMW Login</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Enter Username" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button class="btn">Login 🚗</button>
+        <p>No account? <a href="/signup/" style="color:#00a8ff; text-decoration:none;">Signup Here</a></p>
+        {% if error %}
+            <p style="color:#ff6b6b; margin-top:10px;">{{ error }}</p>
+        {% endif %}
+    </form>
+
+</div>
+
+</body>
+</html>
