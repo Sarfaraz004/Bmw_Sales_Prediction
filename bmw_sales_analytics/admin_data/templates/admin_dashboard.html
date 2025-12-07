@@ -1,69 +1,219 @@
-<!-- visualization/templates/visualization/dashboard.html -->
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard</title>
+    <title>BMW Admin Dashboard</title>
+
+    <!-- DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- BMW THEME STYLE -->
+    <style>
+        /* -----------------------------------
+                GLOBAL BMW DARK THEME
+        ----------------------------------- */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #050a15;
+            color: #e3eeff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animate {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 30%, #1616db55 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, #0008ff44 0%, transparent 50%),
+                        radial-gradient(circle at 50% 90%, #272ae633 0%, transparent 50%);
+            filter: blur(55px);
+            animation: moveBg 12s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+        @keyframes moveBg {
+            0% { transform: translate(-5%, -4%); }
+            100% { transform: translate(5%, 4%); }
+        }
+
+        /* -----------------------------------
+                HEADER
+        ----------------------------------- */
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 36px;
+            color: #68b7ff;
+            text-shadow: 0 0 12px #009dffa8;
+        }
+
+        /* -----------------------------------
+                TABLE CONTAINER
+        ----------------------------------- */
+        .table-container {
+            width: 95%;
+            margin: 40px auto;
+            background: rgba(255,255,255,0.10);
+            backdrop-filter: blur(15px);
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 0 25px #006bff44;
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+
+        /* DataTable Header */
+        table.dataTable thead th {
+            background: rgba(0,102,255,0.2);
+            color: #cfeaff !important;
+            font-weight: 600;
+            text-shadow: 0 0 4px #008cff;
+        }
+
+        /* DataTable Rows */
+        table.dataTable tbody tr {
+            background: rgba(255,255,255,0.05);
+            color: #e9f1ff;
+        }
+
+        table.dataTable tbody tr:hover {
+            background: rgba(0,129,255,0.22);
+            transition: 0.3s;
+        }
+
+        /* Table borders removed for smooth glass look */
+        table.dataTable {
+            border-collapse: collapse !important;
+        }
+
+        /* -----------------------------------
+                PAGINATION
+        ----------------------------------- */
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            padding: 8px 15px;
+            margin: 4px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.12);
+            color: #8dc9ff;
+            text-decoration: none;
+            transition: .3s;
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .pagination a:hover {
+            background: #008cff;
+            color: white;
+            box-shadow: 0 0 12px #009dff;
+        }
+        .step-links span {
+            color: #6bb7ff;
+            font-weight: 600;
+        }
+
+        /* DataTables Pagination Theme */
+        .dataTables_wrapper .dataTables_paginate a {
+            color: #8dc9ff !important;
+            background: rgba(255,255,255,0.12) !important;
+            border-radius: 6px;
+            padding: 6px 12px;
+            border: 1px solid rgba(255,255,255,0.18) !important;
+        }
+        .dataTables_wrapper .dataTables_paginate a:hover {
+            background: #008cff !important;
+            color: white !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .current {
+            background: #008cff !important;
+            color: #fff !important;
+            border-radius: 6px !important;
+        }
+
+        /* Search Box */
+        .dataTables_filter input {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.22);
+            color: #e9f1ff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .dataTables_filter label {
+            color: #9ecaff;
+        }
+    </style>
 </head>
+
 <body>
+
+    <!-- BACKGROUND -->
+    <div class="bg-animate"></div>
+
     <h1>BMW Sales Dashboard</h1>
-    <table id="salesTable" class="display">
-    <thead>
-        <tr>
-            <th>Model</th>
-            <th>Year</th>
-            <th>Region</th>
-            <th>Color</th>
-            <th>Fuel</th>
-            <th>Transmission</th>
-            <th>Engine Size</th>
-            <th>Mileage</th>
-            <th>Price</th>
-            <th>Sales Volume</th>
-            <th>Classification</th>
-            <th>Purchase Date</th>
-            <th>Payment ID</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for car in page_obj %}
-        <tr>
-            <td>{{ car.model }}</td>
-            <td>{{ car.year }}</td>
-            <td>{{ car.region }}</td>
-            <td>{{ car.color }}</td>
-            <td>{{ car.fuel_type }}</td>
-            <td>{{ car.transmission }}</td>
-            <td>{{ car.engine_size_l }}</td>
-            <td>{{ car.mileage_km }}</td>
-            <td>{{ car.price_usd }}</td>
-            <td>{{ car.sales_volume }}</td>
-            <td>{{ car.sales_classification }}</td>
-            <td>{{ car.purchase_date }}</td>
-            <td>{{ car.payment_id }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
 
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+    <div class="table-container">
+        <table id="salesTable" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Region</th>
+                    <th>Color</th>
+                    <th>Fuel</th>
+                    <th>Transmission</th>
+                    <th>Engine Size</th>
+                    <th>Mileage</th>
+                    <th>Price</th>
+                    <th>Sales Volume</th>
+                    <th>Classification</th>
+                    <th>Purchase Date</th>
+                    <th>Payment ID</th>
+                </tr>
+            </thead>
 
-        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <tbody>
+                {% for car in page_obj %}
+                <tr>
+                    <td>{{ car.model }}</td>
+                    <td>{{ car.year }}</td>
+                    <td>{{ car.region }}</td>
+                    <td>{{ car.color }}</td>
+                    <td>{{ car.fuel_type }}</td>
+                    <td>{{ car.transmission }}</td>
+                    <td>{{ car.engine_size_l }}</td>
+                    <td>{{ car.mileage_km }}</td>
+                    <td>{{ car.price_usd }}</td>
+                    <td>{{ car.sales_volume }}</td>
+                    <td>{{ car.sales_classification }}</td>
+                    <td>{{ car.purchase_date }}</td>
+                    <td>{{ car.payment_id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
+    <!-- PAGINATION -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+    
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
 
     <script>
@@ -73,5 +223,6 @@
             });
         });
     </script>
+
 </body>
 </html>

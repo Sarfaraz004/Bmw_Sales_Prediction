@@ -11,16 +11,34 @@ def home(request):
 
 # Signup View
 def signup_view(request):
+    error = None
+
     if request.method == "POST":
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.save()
-        return redirect('login')
+        # Password validations
+        if len(password) < 6:
+            error = 'Password must be at least 6 characters long'
+        elif not any(char.isdigit() for char in password):
+            error = 'Password must contain at least one number'
+        elif not any(char.isupper() for char in password):
+            error = 'Password must contain at least one uppercase letter'
+        elif not any(char in '!@#$%^&*()_+' for char in password):
+            error = 'Password must contain at least one special character'
+        elif User.objects.filter(username=username).exists():
+            error = 'Username already exists'
+        elif User.objects.filter(email=email).exists():
+            error = 'Email already registered'
 
-    return render(request, 'signup.html')
+        if not error:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+            return redirect('login')
+
+    return render(request, 'signup.html', {"error": error})
+
 
 # Login View
 def login_view(request):
