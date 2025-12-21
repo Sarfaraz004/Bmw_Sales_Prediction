@@ -1,0 +1,1389 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="icon" href="{% static 'images/BMW-logo.png' %}" type="image/x-icon">
+  <title>BMW Model Details</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background: #000000;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Enhanced BMW Navbar with black premium theme */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(28, 105, 212, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      animation: slideDown 0.6s ease;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-bmw-circle {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-quadrant {
+      width: 100%;
+      height: 100%;
+    }
+
+    .nq1 {
+      background: #1c69d4;
+    }
+
+    .nq2 {
+      background: #ffffff;
+    }
+
+    .nq3 {
+      background: #ffffff;
+    }
+
+    .nq4 {
+      background: #1c69d4;
+    }
+
+    .nav-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 3px;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+    }
+
+    .nav-menu li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-menu li a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Premium hero section with luxury black/blue theme */
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(28, 105, 212, 0.4) 50%, rgba(0, 0, 0, 0.85) 100%);
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      color: white;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .car-title {
+      font-size: 5.5rem;
+      font-weight: 700;
+      letter-spacing: 6px;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 30px rgba(28, 105, 212, 0.8);
+      background: #ffffff;
+      background-clip: text;
+    }
+
+    .car-tagline {
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: 3px;
+      margin-bottom: 50px;
+      color: #ffffff;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1c69d4 0%, #0f4c9a 100%);
+      color: white;
+      border: none;
+      padding: 20px 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 40px rgba(28, 105, 212, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(28, 105, 212, 0.7);
+      background: linear-gradient(135deg, #2579e4 0%, #1c69d4 100%);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 20px 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: #000;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(255, 255, 255, 0.3);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+
+    .mouse {
+      width: 30px;
+      height: 50px;
+      border: 3px solid white;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .mouse::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 10px;
+      background: white;
+      border-radius: 3px;
+      animation: scroll 2s infinite;
+    }
+
+    /* Premium car showcase with luxury black background */
+    .car-showcase {
+      padding: 120px 20px;
+      background: linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+    }
+
+    .showcase-container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .car-image-main {
+      width: 100%;
+      margin-bottom: 60px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(28, 105, 212, 0.4);
+      animation: fadeInUp 0.8s ease;
+      position: relative;
+    }
+
+    .car-image-main::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(28, 105, 212, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .car-image-main img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .car-image-main:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Enhanced gallery with labels and premium styling */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      border: 3px solid transparent;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      background: #1a1a1a;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 50px rgba(28, 105, 212, 0.5);
+      border-color: #1c69d4;
+    }
+
+    .gallery-item.active {
+      border-color: #1c69d4;
+      box-shadow: 0 15px 50px rgba(28, 105, 212, 0.6);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Luxury specifications section with black/blue premium theme */
+    .specifications {
+      padding: 120px 20px;
+      background: linear-gradient(180deg, #000000 0%, #0d1117 100%);
+    }
+
+    .specs-container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 3.5rem;
+      color: #ffffff;
+      margin-bottom: 80px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #1c69d4, transparent);
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+    }
+
+    .spec-card {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+      border: 2px solid #2a2a2a;
+      border-radius: 24px;
+      padding: 50px;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spec-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #1c69d4 0%, #0f4c9a 100%);
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+
+    .spec-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .spec-card::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(28, 105, 212, 0.1) 0%, transparent 70%);
+      transition: all 0.5s ease;
+    }
+
+    .spec-card:hover::after {
+      top: -30%;
+      right: -30%;
+      width: 300px;
+      height: 300px;
+    }
+
+    .spec-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 60px rgba(28, 105, 212, 0.4);
+      border-color: #1c69d4;
+    }
+
+    .spec-icon-wrapper {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #1c69d4 0%, #0f4c9a 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(28, 105, 212, 0.5);
+      transition: all 0.4s ease;
+    }
+
+    .spec-card:hover .spec-icon-wrapper {
+      transform: scale(1.1) rotate(360deg);
+    }
+
+    .spec-icon {
+      width: 40px;
+      height: 40px;
+      color: white;
+    }
+
+    .spec-card h3 {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-bottom: 30px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .spec-details p {
+      margin-bottom: 18px;
+      font-size: 1.1rem;
+      color: #b0b0b0;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid #2a2a2a;
+      transition: all 0.3s ease;
+    }
+
+    .spec-details p:hover {
+      color: #ffffff;
+      border-bottom-color: #1c69d4;
+    }
+
+    .spec-details p:last-child {
+      border-bottom: none;
+    }
+
+    .spec-details strong {
+      color: #e0e0e0;
+      font-weight: 600;
+    }
+
+    .spec-details span {
+      color: #1c69d4;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    /* Premium features section with enhanced luxury styling */
+    .features-section {
+      padding: 120px 20px;
+      background: linear-gradient(180deg, #0d1117 0%, #000000 100%);
+    }
+
+    .features-container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      gap: 100px;
+    }
+
+    .feature-item {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .feature-item.reverse {
+      direction: rtl;
+    }
+
+    .feature-item.reverse>* {
+      direction: ltr;
+    }
+
+    .feature-image {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(28, 105, 212, 0.3);
+      position: relative;
+    }
+
+    .feature-image::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(28, 105, 212, 0.2) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .feature-image:hover::after {
+      opacity: 1;
+    }
+
+    .feature-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .feature-image:hover img {
+      transform: scale(1.08);
+    }
+
+    .feature-content h3 {
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin-bottom: 25px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .feature-content p {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      line-height: 1.9;
+      margin-bottom: 30px;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      padding: 12px 0 12px 35px;
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .feature-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #1c69d4;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    /* Premium CTA section */
+    .cta-section {
+      padding: 120px 20px;
+      background: linear-gradient(135deg, #000000 0%, #1c69d4 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("/placeholder.svg?height=1080&width=1920") center / cover;
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    .cta-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-container h2 {
+      font-size: 3.5rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .cta-container p {
+      font-size: 1.4rem;
+      margin-bottom: 60px;
+      opacity: 0.95;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-buttons .btn-primary {
+      background: white;
+      color: #1c69d4;
+    }
+
+    .cta-buttons .btn-secondary {
+      border-color: white;
+    }
+
+    /* Footer */
+    .footer {
+      background: #262626;
+      color: white;
+      padding: 60px 20px 20px;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h4 {
+      color: #1c69d4;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section ul li a:hover {
+      color: #1c69d4;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      color: #999;
+    }
+
+    /* Enhanced animations */
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(80px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(-20px);
+      }
+    }
+
+    @keyframes scroll {
+      0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .feature-item {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-item.reverse {
+        direction: ltr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .car-title {
+        font-size: 3.5rem;
+      }
+
+      .car-tagline {
+        font-size: 1.4rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item img {
+        height: 150px;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BMW Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo" onclick="window.location.href='index.html'">
+        <div class="nav-bmw-circle">
+          <div class="nav-quadrant nq1"></div>
+          <div class="nav-quadrant nq2"></div>
+          <div class="nav-quadrant nq3"></div>
+          <div class="nav-quadrant nq4"></div>
+        </div>
+        <span class="nav-brand">BMW</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/models/">Models</a></li>
+        <li><a href="#car-showcase" class="scroll-link">Images</a></li>
+        <li><a href="#specifications" class="scroll-link">Specifications</a></li>
+        <li><a href="#features-section" class="scroll-link">Features</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section with Car Image -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <video class="hero-bg" id="heroBg" autoplay muted loop playsinline>
+      <source src="{% static 'videos/BMW_video.mp4' %}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-content">
+      <h1 class="car-title" id="carTitle">BMW 3 Series</h1>
+      <p class="car-tagline">The Ultimate Driving Machine</p>
+      <form id="csrf-form" style="display:none;">
+        {% csrf_token %}
+      </form>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="initiatePayment(selectedModel)">
+          Buy Now
+        </button>
+        <button class="btn-secondary">Book a Test Drive</button>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="mouse"></div>
+    </div>
+  </section>
+
+  <!-- Main Car Image Section -->
+  <section id="car-showcase" class="car-showcase">
+    <div class="showcase-container">
+      <div class="car-image-main">
+        <img id="mainCarImage" src="{% static 'images/3-series/main.jpeg' %}" alt="BMW Model" />
+      </div>
+      <div class="image-gallery">
+        <div class="gallery-item active" data-image="{% static 'images/3-series/exterior.jpeg' %}">
+          <img src="{% static 'images/3-series/exterior.jpeg' %}" alt="Front View" />
+          <span class="gallery-label">Exterior</span>
+        </div>
+        <div class="gallery-item" data-image="/placeholder.svg?height=800&width=1600">
+          <img src="{% static 'images/3-series/interior.jpeg' %}" alt="Interior" />
+          <span class="gallery-label">Interior</span>
+        </div>
+        <div class="gallery-item" data-image="/placeholder.svg?height=800&width=1600">
+          <img src="{% static 'images/3-series/side.jpeg' %}" alt="Side View" />
+          <span class="gallery-label">Profile</span>
+        </div>
+        <div class="gallery-item" data-image="/placeholder.svg?height=800&width=1600">
+          <img src="{% static 'images/3-series/rear.jpeg' %}" alt="Rear View" />
+          <span class="gallery-label">Rear</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specifications Section -->
+  <section id="specifications" class="specifications">
+    <div class="specs-container">
+      <h2 class="section-title">Technical Excellence</h2>
+
+      <div class="specs-grid">
+        <div class="spec-card">
+          <div class="spec-icon-wrapper">
+            <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+          </div>
+          <h3>Performance</h3>
+          <div class="spec-details">
+            <p><strong>Engine:</strong> <span id="engine">2.0L TwinPower Turbo</span></p>
+            <p><strong>Power:</strong> <span id="power">255 HP</span></p>
+            <p><strong>Torque:</strong> <span id="torque">295 lb-ft</span></p>
+            <p><strong>0-60 mph:</strong> <span id="acceleration">5.6 seconds</span></p>
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-icon-wrapper">
+            <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+          </div>
+          <h3>Efficiency</h3>
+          <div class="spec-details">
+            <p><strong>Transmission:</strong> <span id="transmission">8-Speed Automatic</span></p>
+            <p><strong>Drivetrain:</strong> <span id="drivetrain">RWD / xDrive AWD</span></p>
+            <p><strong>Fuel Economy:</strong> <span id="fuelEconomy">26/36 MPG</span></p>
+            <p><strong>Range:</strong> <span id="range">480 miles</span></p>
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-icon-wrapper">
+            <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+            </svg>
+          </div>
+          <h3>Dimensions</h3>
+          <div class="spec-details">
+            <p><strong>Length:</strong> <span id="length">185.7 in</span></p>
+            <p><strong>Width:</strong> <span id="width">71.9 in</span></p>
+            <p><strong>Height:</strong> <span id="height">56.8 in</span></p>
+            <p><strong>Wheelbase:</strong> <span id="wheelbase">112.2 in</span></p>
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-icon-wrapper">
+            <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <h3>Features</h3>
+          <div class="spec-details">
+            <p><strong>Seating:</strong> <span id="seating">5 Passengers</span></p>
+            <p><strong>Cargo:</strong> <span id="cargo">13 cu ft</span></p>
+            <p><strong>Top Speed:</strong> <span id="topSpeed">155 mph (limited)</span></p>
+            <p><strong>Starting MSRP:</strong> <span id="price">$43,800</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features-section" class="features-section">
+    <div class="features-container">
+      <h2 class="section-title">Innovative Technology</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-image">
+            <img src="{% static 'images/3-series/screen.jpeg' %}" alt="iDrive" />
+          </div>
+          <div class="feature-content">
+            <h3>BMW iDrive 8.0</h3>
+            <p>Experience the future of automotive control with the curved display, featuring natural voice control,
+              seamless smartphone integration, and intelligent personal assistant that learns your preferences.</p>
+            <ul class="feature-list">
+              <li>14.9-inch curved touchscreen display</li>
+              <li>Gesture control technology</li>
+              <li>Wireless Apple CarPlay & Android Auto</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-item reverse">
+          <div class="feature-image">
+            <img src="{% static 'images/3-series/brakes.jpeg' %}" alt="Driving Assistant" />
+          </div>
+          <div class="feature-content">
+            <h3>Driving Assistant Professional</h3>
+            <p>Advanced safety systems work seamlessly to protect you and your passengers, with radar and camera
+              technology monitoring your surroundings 360 degrees in real-time.</p>
+            <ul class="feature-list">
+              <li>Active lane keeping with side collision avoidance</li>
+              <li>Adaptive cruise control with stop & go</li>
+              <li>Collision and pedestrian warning with braking</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-image">
+            <img src="{% static 'images/3-series/interior.jpeg' %}" alt="Interior" />
+          </div>
+          <div class="feature-content">
+            <h3>Luxury Interior</h3>
+            <p>Immerse yourself in handcrafted excellence with premium Vernasca leather, ambient contour lighting with
+              11 colors, and heated/ventilated front seats with memory function for ultimate comfort.</p>
+            <ul class="feature-list">
+              <li>Premium Vernasca perforated leather</li>
+              <li>16-way power adjustable front seats</li>
+              <li>4-zone automatic climate control</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search)
+    const model = urlParams.get("model") || "4-series-convertible"
+    const RAZORPAY_KEY = "{{ razorpay_key_id }}";
+    // Model data
+    const modelData = {
+      "1-series": {
+        title: "BMW 1 Series Hatchback",
+        tagline: "Compact Performance",
+        engine: "2.0L TwinPower Turbo",
+        power: "228 HP",
+        torque: "258 lb-ft",
+        acceleration: "6.0 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "FWD / xDrive AWD",
+        fuelEconomy: "28/38 MPG",
+        range: "420 miles",
+        length: "171.9 in",
+        width: "70.0 in",
+        height: "55.9 in",
+        wheelbase: "105.1 in",
+        seating: "5 Passengers",
+        cargo: "13.1 cu ft",
+        topSpeed: "146 mph",
+        price: "$35,900",
+      },
+      "3-series": {
+        title: "BMW 3 Series",
+        tagline: "The Ultimate Driving Machine",
+        engine: "2.0L TwinPower Turbo",
+        power: "255 HP",
+        torque: "295 lb-ft",
+        acceleration: "5.6 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "RWD / xDrive AWD",
+        fuelEconomy: "26/36 MPG",
+        range: "480 miles",
+        length: "185.7 in",
+        width: "71.9 in",
+        height: "56.8 in",
+        wheelbase: "112.2 in",
+        seating: "5 Passengers",
+        cargo: "13 cu ft",
+        topSpeed: "155 mph (limited)",
+        price: "$43,800",
+      },
+      "5-series": {
+        title: "BMW 5 Series",
+        tagline: "Executive Excellence",
+        engine: "3.0L TwinPower Turbo I6",
+        power: "335 HP",
+        torque: "331 lb-ft",
+        acceleration: "4.9 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "RWD / xDrive AWD",
+        fuelEconomy: "25/33 MPG",
+        range: "500 miles",
+        length: "195.0 in",
+        width: "73.5 in",
+        height: "58.3 in",
+        wheelbase: "117.1 in",
+        seating: "5 Passengers",
+        cargo: "14 cu ft",
+        topSpeed: "155 mph (limited)",
+        price: "$56,200",
+      },
+      "7-series": {
+        title: "BMW 7 Series",
+        tagline: "Luxury Redefined",
+        engine: "3.0L TwinPower Turbo I6",
+        power: "375 HP",
+        torque: "398 lb-ft",
+        acceleration: "5.3 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "RWD / xDrive AWD",
+        fuelEconomy: "23/30 MPG",
+        range: "520 miles",
+        length: "207.9 in",
+        width: "76.3 in",
+        height: "59.1 in",
+        wheelbase: "126.4 in",
+        seating: "5 Passengers",
+        cargo: "18.2 cu ft",
+        topSpeed: "155 mph (limited)",
+        price: "$93,300",
+      },
+      m3: {
+        title: "BMW M3",
+        tagline: "Pure Performance",
+        engine: "3.0L Twin-Turbo I6",
+        power: "473 HP",
+        torque: "406 lb-ft",
+        acceleration: "3.9 seconds",
+        transmission: "6-Speed Manual / 8-Speed Auto",
+        drivetrain: "RWD / M xDrive AWD",
+        fuelEconomy: "16/23 MPG",
+        range: "380 miles",
+        length: "187.5 in",
+        width: "74.3 in",
+        height: "55.9 in",
+        wheelbase: "112.2 in",
+        seating: "5 Passengers",
+        cargo: "13 cu ft",
+        topSpeed: "180 mph (limited)",
+        price: "$73,300",
+      },
+      m5: {
+        title: "BMW M5",
+        tagline: "Executive Power",
+        engine: "4.4L Twin-Turbo V8",
+        power: "600 HP",
+        torque: "553 lb-ft",
+        acceleration: "3.2 seconds",
+        transmission: "8-Speed M Steptronic",
+        drivetrain: "M xDrive AWD",
+        fuelEconomy: "15/21 MPG",
+        range: "400 miles",
+        length: "195.8 in",
+        width: "74.9 in",
+        height: "57.8 in",
+        wheelbase: "117.4 in",
+        seating: "5 Passengers",
+        cargo: "14 cu ft",
+        topSpeed: "190 mph (limited)",
+        price: "$106,700",
+      },
+      x1: {
+        title: "BMW X1",
+        tagline: "Compact SAV Excellence",
+        engine: "2.0L TwinPower Turbo",
+        power: "241 HP",
+        torque: "295 lb-ft",
+        acceleration: "6.2 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "FWD / xDrive AWD",
+        fuelEconomy: "26/33 MPG",
+        range: "450 miles",
+        length: "175.6 in",
+        width: "72.4 in",
+        height: "62.9 in",
+        wheelbase: "105.1 in",
+        seating: "5 Passengers",
+        cargo: "27.6 cu ft",
+        topSpeed: "143 mph",
+        price: "$38,600",
+      },
+      x3: {
+        title: "BMW X3",
+        tagline: "Versatile Performance",
+        engine: "2.0L TwinPower Turbo",
+        power: "248 HP",
+        torque: "258 lb-ft",
+        acceleration: "6.0 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "RWD / xDrive AWD",
+        fuelEconomy: "25/29 MPG",
+        range: "470 miles",
+        length: "185.9 in",
+        width: "74.4 in",
+        height: "66.0 in",
+        wheelbase: "112.8 in",
+        seating: "5 Passengers",
+        cargo: "28.7 cu ft",
+        topSpeed: "130 mph",
+        price: "$45,900",
+      },
+      x5: {
+        title: "BMW X5",
+        tagline: "Commanding Presence",
+        engine: "3.0L TwinPower Turbo I6",
+        power: "335 HP",
+        torque: "331 lb-ft",
+        acceleration: "5.3 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "RWD / xDrive AWD",
+        fuelEconomy: "21/26 MPG",
+        range: "490 miles",
+        length: "194.3 in",
+        width: "78.9 in",
+        height: "69.4 in",
+        wheelbase: "117.1 in",
+        seating: "5-7 Passengers",
+        cargo: "33.9 cu ft",
+        topSpeed: "155 mph (limited)",
+        price: "$61,600",
+      },
+      x6: {
+        title: "BMW X6",
+        tagline: "Sports Activity Coupe",
+        engine: "3.0L TwinPower Turbo I6",
+        power: "335 HP",
+        torque: "331 lb-ft",
+        acceleration: "5.2 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "RWD / xDrive AWD",
+        fuelEconomy: "20/25 MPG",
+        range: "480 miles",
+        length: "194.8 in",
+        width: "78.9 in",
+        height: "66.7 in",
+        wheelbase: "117.1 in",
+        seating: "5 Passengers",
+        cargo: "27.4 cu ft",
+        topSpeed: "155 mph (limited)",
+        price: "$68,700",
+      },
+      i3: {
+        title: "BMW i3",
+        tagline: "Electric Urban Mobility",
+        engine: "Electric Motor",
+        power: "181 HP",
+        torque: "199 lb-ft",
+        acceleration: "7.2 seconds",
+        transmission: "Single-Speed",
+        drivetrain: "RWD",
+        fuelEconomy: "113 MPGe",
+        range: "153 miles",
+        length: "157.4 in",
+        width: "69.9 in",
+        height: "62.9 in",
+        wheelbase: "101.2 in",
+        seating: "4 Passengers",
+        cargo: "15.1 cu ft",
+        topSpeed: "93 mph",
+        price: "$44,450",
+      },
+      i8: {
+        title: "BMW i8",
+        tagline: "Progressive Hybrid Sports Car",
+        engine: "1.5L Turbo + Electric",
+        power: "369 HP",
+        torque: "420 lb-ft",
+        acceleration: "4.2 seconds",
+        transmission: "6-Speed Automatic",
+        drivetrain: "AWD",
+        fuelEconomy: "69 MPGe",
+        range: "330 miles (combined)",
+        length: "184.6 in",
+        width: "76.5 in",
+        height: "50.8 in",
+        wheelbase: "110.2 in",
+        seating: "4 Passengers",
+        cargo: "4.6 cu ft",
+        topSpeed: "155 mph (limited)",
+        price: "$147,500",
+      },
+      "4-series-convertible": {
+        title: "BMW 4 Series Convertible",
+        tagline: "Open-Air Driving Pleasure",
+        engine: "2.0L TwinPower Turbo",
+        power: "255 HP",
+        torque: "295 lb-ft",
+        acceleration: "5.9 seconds",
+        transmission: "8-Speed Automatic",
+        drivetrain: "RWD / xDrive AWD",
+        fuelEconomy: "25/34 MPG",
+        range: "450 miles",
+        length: "182.6 in",
+        width: "72.2 in",
+        height: "54.9 in",
+        wheelbase: "112.2 in",
+        seating: "4 Passengers",
+        cargo: "11.7 cu ft",
+        topSpeed: "155 mph (limited)",
+        price: "$51,800",
+      },
+    }
+
+    // Load model data
+    const data = modelData[model] || modelData["4-series-convertible"]
+
+    // Update page content
+    document.getElementById("carTitle").textContent = data.title
+    document.querySelector(".car-tagline").textContent = data.tagline
+    document.getElementById("engine").textContent = data.engine
+    document.getElementById("power").textContent = data.power
+    document.getElementById("torque").textContent = data.torque
+    document.getElementById("acceleration").textContent = data.acceleration
+    document.getElementById("transmission").textContent = data.transmission
+    document.getElementById("drivetrain").textContent = data.drivetrain
+    document.getElementById("fuelEconomy").textContent = data.fuelEconomy
+    document.getElementById("range").textContent = data.range
+    document.getElementById("length").textContent = data.length
+    document.getElementById("width").textContent = data.width
+    document.getElementById("height").textContent = data.height
+    document.getElementById("wheelbase").textContent = data.wheelbase
+    document.getElementById("seating").textContent = data.seating
+    document.getElementById("cargo").textContent = data.cargo
+    document.getElementById("topSpeed").textContent = data.topSpeed
+    document.getElementById("price").textContent = data.price
+
+    // Gallery functionality
+    const galleryItems = document.querySelectorAll(".gallery-item")
+    const mainImage = document.getElementById("mainCarImage")
+
+    galleryItems.forEach((item) => {
+      item.addEventListener("click", function () {
+        galleryItems.forEach((i) => i.classList.remove("active"))
+        this.classList.add("active")
+        const newImageSrc = this.getAttribute("data-image")
+        mainImage.src = newImageSrc
+      })
+    })
+
+    const selectedModel = {
+      name: "3 Series",
+      variants: [{ price: 60720 }]
+    };
+
+    function initiatePayment(model) {
+      const amountInPaise = model.variants[0].price * 100;
+
+      fetch('/create_order/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({ amount: amountInPaise })
+      })
+
+        .then(res => res.json())
+        .then(order => {
+          const options = {
+            key: RAZORPAY_KEY,
+            amount: order.amount,
+            currency: order.currency,
+            name: "BMW Cars",
+            description: model.name,
+            order_id: order.id,
+            handler: function (response) {
+              fetch('/payment_success/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  model: model.name,
+                  price: model.variants[0].price,
+                  payment_id: response.razorpay_payment_id
+                })
+              }).then(() => alert("Payment successful!"));
+            },
+            theme: { color: "#0b3d91" }
+          };
+          new Razorpay(options).open();
+        })
+        .catch(() => alert("Payment failed"));
+    }
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+    document.querySelectorAll('.scroll-link').forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const targetId = this.getAttribute('href');
+    const target = document.querySelector(targetId);
+
+    if (!target) return;
+
+    const navbarHeight = document.querySelector('nav').offsetHeight || 80;
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = targetPosition - navbarHeight;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  });
+});
+  </script>
+
+</body>
+
+</html>
