@@ -12,7 +12,6 @@ matplotlib==3.9.2
 plotly==5.24.1
 
 # Optional but useful
-
 seaborn==0.13.2
 gunicorn==23.0.0
 whitenoise==6.6.0
